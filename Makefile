@@ -1,7 +1,7 @@
 CC = gcc
 
 TARGET = app
-SRCS = main.c database.c files.c
+SRCS = main.c database.c files.c menu.c
 HEADERS = database.h files.h
 
 all: $(TARGET)
