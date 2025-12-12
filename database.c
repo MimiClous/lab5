@@ -3,8 +3,6 @@
 #include <string.h>
 #include "database.h"
 
-
-
 List* create_list() {
     List* list = (List*)malloc(sizeof(List));
     list->head = NULL;
@@ -13,6 +11,7 @@ List* create_list() {
     list->capacity = 0;
     return list;
 }
+
 void add_product(List* list) {
     Node* new_Node = (Node*)malloc(sizeof(Node));
     
@@ -22,8 +21,12 @@ void add_product(List* list) {
     while ((c = getchar()) != '\n' && c != EOF);
     
     printf("Введите название товара: ");
-    fgets(new_Node->name, 50, stdin);
-    new_Node->name[strcspn(new_Node->name, "\n")] = '\0'; 
+    int i = 0;
+    while (i < 149 && (c = getchar()) != '\n' && c != EOF) {
+        new_Node->name[i++] = c;
+    }
+    new_Node->name[i] = '\0';
+    
     printf("Введите цену товара: ");
     scanf("%f", &new_Node->price);
     
@@ -33,12 +36,18 @@ void add_product(List* list) {
     while ((c = getchar()) != '\n' && c != EOF);
     
     printf("Введите категорию: ");
-    fgets(new_Node->category, 30, stdin);
-    new_Node->category[strcspn(new_Node->category, "\n")] = '\0';
+    i = 0;
+    while (i < 99 && (c = getchar()) != '\n' && c != EOF) {
+        new_Node->category[i++] = c;
+    }
+    new_Node->category[i] = '\0';
     
     printf("Введите описание: ");
-    fgets(new_Node->description, 150, stdin);
-    new_Node->description[strcspn(new_Node->description, "\n")] = '\0';
+    i = 0;
+    while (i < 499 && (c = getchar()) != '\n' && c != EOF) {
+        new_Node->description[i++] = c;
+    }
+    new_Node->description[i] = '\0';
     
     new_Node->next = NULL;
     new_Node->past = NULL;
@@ -66,6 +75,7 @@ void free_list(List* list){
     }
     free(list);
 }
+
 void print_list(List* list) {
     if (list->size == 0) {
         printf("Список товаров пуст!\n");
@@ -111,7 +121,7 @@ void search_products(List* list) {
                 printf("  Цена: %f\n", current->price);
                 printf("  Кол-во: %d\n", current->kolvo);
                 printf("  Категория: %s\n", current->category);
-                found = 1;
+                found++;
             }
             current = current->next;
         }
@@ -129,13 +139,13 @@ void search_products(List* list) {
                 printf("  Цена: %.2f\n", current->price);
                 printf("  Кол-во: %d\n", current->kolvo);
                 printf("  Категория: %s\n", current->category);
-                found = 1;
+                found++;
             }
             current = current->next;
         }
     }
     else {
-        printf("Непраильные данные");
+        printf("Неправильные данные");
         return;
     }
     

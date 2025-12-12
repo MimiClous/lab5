@@ -8,8 +8,15 @@ void load(List* list) {
     FILE* file = fopen("bd.txt", "r");
     if (!file) return;
 
-    if (list->size > 0) free_list(list);
-    *list = *(create_list());
+    Node* current = list->tail;
+    while (current != NULL) {
+        Node* next = current->next;
+        free(current);
+        current = next;
+    }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
     
     int total;
     fscanf(file, "%d:", &total);
@@ -21,7 +28,7 @@ void load(List* list) {
         int j = 0;
         int c;
         
-        while (j < 49 && (c = fgetc(file)) != ':' && c != EOF) {
+        while (j < 149 && (c = fgetc(file)) != ':' && c != EOF) {
             node->name[j++] = c;
         }
         node->name[j] = '\0';
@@ -31,13 +38,13 @@ void load(List* list) {
         fscanf(file, "%d:", &node->kolvo);
         
         j = 0;
-        while (j < 29 && (c = fgetc(file)) != ':' && c != EOF) {
+        while (j < 99 && (c = fgetc(file)) != ':' && c != EOF) {
             node->category[j++] = c;
         }
         node->category[j] = '\0';
         
         j = 0;
-        while (j < 149 && (c = fgetc(file)) != ';' && c != EOF) {
+        while (j < 499 && (c = fgetc(file)) != ';' && c != EOF) {
             node->description[j++] = c;
         }
         node->description[j] = '\0';
@@ -68,7 +75,6 @@ void save(List* list) {
     fprintf(file, "%d:", list->size);
     
     Node* current = list->tail;  
-    int count = 0;
     while (current != NULL) {
         fprintf(file, "%s:%.2f:%d:%s:%s;",
                 current->name,
@@ -76,7 +82,6 @@ void save(List* list) {
                 current->kolvo,
                 current->category,
                 current->description);
-        count++;
         current = current->next;
     }
     
