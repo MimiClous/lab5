@@ -195,3 +195,48 @@ void search_products(List* list) {
         printf("\nВсего найдено товаров: %d\n", found);
     }
 }
+void delete_product(List* list, char* name){
+    if (list->size == 0) {
+        printf("Список товаров пуст!\n");
+        return;
+    }
+    
+    Node* current = list->tail;
+    int deleted = 0;
+    
+    while (current != NULL) {
+        if (strcmp(current->name, name) == 0) {
+            if (current->past == NULL) {
+                list->tail = current->next;
+                if (list->tail != NULL) {
+                    list->tail->past = NULL;
+                }
+            } else {
+                current->past->next = current->next;
+            }
+            
+            if (current->next == NULL) {
+                list->head = current->past;
+                if (list->head != NULL) {
+                    list->head->next = NULL;
+                }
+            } else {
+                current->next->past = current->past;
+            }
+            
+            Node* to_delete = current;
+            current = current->next;
+            free(to_delete);
+            list->size--;
+            deleted = 1;
+            printf("Товар '%s' удален\n", name);
+            break;
+        } else {
+            current = current->next;
+        }
+    }
+    
+    if (!deleted) {
+        printf("Товар с именем '%s' не найден\n", name);
+    }
+}

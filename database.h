@@ -23,7 +23,7 @@ void free_list(List* list);
 void print_list(List* list);
 void insert_product(List* list, int index);
 void search_products(List* list);
-void delete_product(List* list);
-void edit_product(List* list);
+void delete_product(List* list, char* name);
+
 
 #endif

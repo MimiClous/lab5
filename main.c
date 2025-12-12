@@ -1,34 +1,8 @@
 #include <stdio.h>
 #include "database.h"
 #include "files.h"
+#include "menu.h"
 
-int menu()
-{
-    int action;
-    int res;
-
-    printf("1. Вывести товары на экран\n");
-    printf("2. Добавить новый товар\n");
-    printf("3. Поиск товаров\n");
-    printf("4. Сохранить в файл\n");
-    printf("5. Загрузить из файла\n");
-    printf("6. Выход\n");
-    printf("Выберите действие: ");
-
-    res = scanf("%d", &action);
-
-    if (res != 1){
-        printf("Некорректные данные. Требуется число\n");
-        while (getchar() != '\n');
-        return 0;
-    }
-    if (action < 1 || action > 6){
-        printf("Некорректные данные\n");
-        return 0;
-    }
-
-    return action;
-}
 
 int main(){
     List* product_list = create_list();
@@ -47,16 +21,32 @@ int main(){
             add_product(product_list);
             save(product_list);  
         }
-        else if (action == 3) {
-            search_products(product_list);
+        else if (action == 3){
+            char name_prod[150];
+            printf("Удалить товар под именем: ");
+
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            
+            int i = 0;
+            while (i < 149 && (c = getchar()) != '\n' && c != EOF) {
+                name_prod[i++] = c;
+            }
+            name_prod[i] = '\0';
+            
+            delete_product(product_list, name_prod);
+            save(product_list);
         }
         else if (action == 4) {
-            save(product_list);  
+            search_products(product_list);
         }
         else if (action == 5) {
-            load(product_list);      
+            save(product_list);  
         }
         else if (action == 6) {
+            load(product_list);      
+        }
+        else if (action == 7) {
             save(product_list);  
             printf("Выход\n");
             free_list(product_list);
