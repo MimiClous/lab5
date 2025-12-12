@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include "database.h"
 #include "files.h"
 #include "menu.h"
-
 
 int main(){
     List* product_list = create_list();
@@ -24,7 +24,7 @@ int main(){
         else if (action == 3){
             char name_prod[150];
             printf("Удалить товар под именем: ");
-
+            
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
             
