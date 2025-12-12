@@ -8,7 +8,6 @@ List* create_list() {
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
-    list->capacity = 0;
     return list;
 }
 

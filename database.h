@@ -1,7 +1,6 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-
 typedef struct Node {
     char name[150];
     float price;
@@ -16,7 +15,6 @@ typedef struct {
     Node* head;         
     Node* tail;        
     int size;
-    int capacity;           
 } List;
 
 List* create_list();
