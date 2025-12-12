@@ -22,32 +22,73 @@ void add_product(List* list) {
     
     printf("Введите название товара: ");
     int i = 0;
+    int error = 0;
     while (i < 149 && (c = getchar()) != '\n' && c != EOF) {
+        if (c == ':' || c == ';' || c == '\\') {
+            printf("\nОшибка! Нельзя использовать символы : ; \\ в названии\n");
+            error = 1;
+            break;
+        }
         new_Node->name[i++] = c;
     }
     new_Node->name[i] = '\0';
     
+    if (error) {
+        free(new_Node);
+        return;
+    }
+    
     printf("Введите цену товара: ");
-    scanf("%f", &new_Node->price);
+    if (scanf("%f", &new_Node->price) != 1) {
+        printf("\nОшибка ввода цены!\n");
+        free(new_Node);
+        return;
+    }
     
     printf("Введите количество: ");
-    scanf("%d", &new_Node->kolvo);
+    if (scanf("%d", &new_Node->kolvo) != 1) {
+        printf("\nОшибка ввода количества!\n");
+        free(new_Node);
+        return;
+    }
     
     while ((c = getchar()) != '\n' && c != EOF);
     
     printf("Введите категорию: ");
     i = 0;
+    error = 0;
     while (i < 99 && (c = getchar()) != '\n' && c != EOF) {
+        if (c == ':' || c == ';' || c == '\\') {
+            printf("\nОшибка! Нельзя использовать символы : ; \\ в категории\n");
+            error = 1;
+            break;
+        }
         new_Node->category[i++] = c;
     }
     new_Node->category[i] = '\0';
     
+    if (error) {
+        free(new_Node);
+        return;
+    }
+    
     printf("Введите описание: ");
     i = 0;
+    error = 0;
     while (i < 499 && (c = getchar()) != '\n' && c != EOF) {
+        if (c == ';' || c == '\\') {
+            printf("\nОшибка! Нельзя использовать символы ; \\ в описании\n");
+            error = 1;
+            break;
+        }
         new_Node->description[i++] = c;
     }
     new_Node->description[i] = '\0';
+    
+    if (error) {
+        free(new_Node);
+        return;
+    }
     
     new_Node->next = NULL;
     new_Node->past = NULL;
