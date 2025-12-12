@@ -21,9 +21,10 @@ List* create_list();
 void add_product(List* list);
 void free_list(List* list);
 void print_list(List* list);
-void insert_product(List* list, int index);
 void search_products(List* list);
 void delete_product(List* list, char* name);
-
+void search_by_name(List* list, char* name);
+void search_by_price(List* list, float price);
+void search_by_quantity(List* list, int quantity);
 
 #endif

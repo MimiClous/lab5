@@ -76,12 +76,7 @@ void save(List* list) {
     
     Node* current = list->tail;  
     while (current != NULL) {
-        fprintf(file, "%s:%.2f:%d:%s:%s;",
-                current->name,
-                current->price,
-                current->kolvo,
-                current->category,
-                current->description);
+        fprintf(file, "%s:%.2f:%d:%s:%s;",current->name,current->price,current->kolvo,current->category,current->description);
         current = current->next;
     }
     

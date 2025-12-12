@@ -20,74 +20,24 @@ void add_product(List* list) {
     while ((c = getchar()) != '\n' && c != EOF);
     
     printf("Введите название товара: ");
-    int i = 0;
-    int error = 0;
-    while (i < 149 && (c = getchar()) != '\n' && c != EOF) {
-        if (c == ':' || c == ';' || c == '\\') {
-            printf("\nОшибка! Нельзя использовать символы : ; \\ в названии\n");
-            error = 1;
-            break;
-        }
-        new_Node->name[i++] = c;
-    }
-    new_Node->name[i] = '\0';
-    
-    if (error) {
-        free(new_Node);
-        return;
-    }
+    fgets(new_Node->name, 150, stdin);
+    new_Node->name[strcspn(new_Node->name, "\n")] = '\0';
     
     printf("Введите цену товара: ");
-    if (scanf("%f", &new_Node->price) != 1) {
-        printf("\nОшибка ввода цены!\n");
-        free(new_Node);
-        return;
-    }
+    scanf("%f", &new_Node->price);
     
     printf("Введите количество: ");
-    if (scanf("%d", &new_Node->kolvo) != 1) {
-        printf("\nОшибка ввода количества!\n");
-        free(new_Node);
-        return;
-    }
+    scanf("%d", &new_Node->kolvo);
     
     while ((c = getchar()) != '\n' && c != EOF);
     
     printf("Введите категорию: ");
-    i = 0;
-    error = 0;
-    while (i < 99 && (c = getchar()) != '\n' && c != EOF) {
-        if (c == ':' || c == ';' || c == '\\') {
-            printf("\nОшибка! Нельзя использовать символы : ; \\ в категории\n");
-            error = 1;
-            break;
-        }
-        new_Node->category[i++] = c;
-    }
-    new_Node->category[i] = '\0';
-    
-    if (error) {
-        free(new_Node);
-        return;
-    }
+    fgets(new_Node->category, 100, stdin);
+    new_Node->category[strcspn(new_Node->category, "\n")] = '\0';
     
     printf("Введите описание: ");
-    i = 0;
-    error = 0;
-    while (i < 499 && (c = getchar()) != '\n' && c != EOF) {
-        if (c == ';' || c == '\\') {
-            printf("\nОшибка! Нельзя использовать символы ; \\ в описании\n");
-            error = 1;
-            break;
-        }
-        new_Node->description[i++] = c;
-    }
-    new_Node->description[i] = '\0';
-    
-    if (error) {
-        free(new_Node);
-        return;
-    }
+    fgets(new_Node->description, 500, stdin);
+    new_Node->description[strcspn(new_Node->description, "\n")] = '\0';
     
     new_Node->next = NULL;
     new_Node->past = NULL;
@@ -195,6 +145,7 @@ void search_products(List* list) {
         printf("\nВсего найдено товаров: %d\n", found);
     }
 }
+
 void delete_product(List* list, char* name){
     if (list->size == 0) {
         printf("Список товаров пуст!\n");
