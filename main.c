@@ -41,12 +41,16 @@ int main(){
             search_products(product_list);
         }
         else if (action == 5) {
-            save(product_list);  
+            edit_product(product_list);
+            save(product_list);
         }
         else if (action == 6) {
-            load(product_list);      
+            save(product_list);  
         }
         else if (action == 7) {
+            load(product_list);      
+        }
+        else if (action == 8) {
             save(product_list);  
             printf("Выход\n");
             free_list(product_list);

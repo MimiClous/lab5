@@ -191,3 +191,69 @@ void delete_product(List* list, char* name){
         printf("Товар с именем '%s' не найден\n", name);
     }
 }
+void edit_product(List* list){
+    if (list->size == 0) {
+        printf("Список товаров пуст!\n");
+        return;
+    }
+    
+    print_list(list);
+    
+    int product_num;
+    printf("\nВведите номер товара для редактирования (1-%d): ", list->size);
+    scanf("%d", &product_num);
+    
+    if (product_num < 1 || product_num > list->size) {
+        printf("Некорректный номер товара!\n");
+        return;
+    }
+    
+    Node* current = list->tail;
+    for (int i = 1; i < product_num; i++) {
+        current = current->next;
+    }
+    
+    int choice;
+    int c;
+    
+    printf("\n1. Наименование: %s\n", current->name);
+    printf("2. Цена: %.2f\n", current->price);
+    printf("3. Количество: %d\n", current->kolvo);
+    printf("4. Категория: %s\n", current->category);
+    printf("5. Описание: %s\n", current->description);
+    printf("6. Выйти\n");
+    printf("Выберите поле для редактирования: ");
+    scanf("%d", &choice);
+    
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    if (choice == 1) {
+        printf("Введите новое наименование: ");
+        fgets(current->name, sizeof(current->name), stdin);
+        current->name[strcspn(current->name, "\n")] = '\0';
+    }
+    else if (choice == 2) {
+        printf("Введите новую цену: ");
+        scanf("%f", &current->price);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    else if (choice == 3) {
+        printf("Введите новое количество: ");
+        scanf("%d", &current->kolvo);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    else if (choice == 4) {
+        printf("Введите новую категорию: ");
+        fgets(current->category, sizeof(current->category), stdin);
+        current->category[strcspn(current->category, "\n")] = '\0';
+    }
+    else if (choice == 5) {
+        printf("Введите новое описание: ");
+        fgets(current->description, sizeof(current->description), stdin);
+        current->description[strcspn(current->description, "\n")] = '\0';
+    }
+    
+    if (choice >= 1 && choice <= 5) {
+        printf("Изменения сохранены!\n");
+    }
+}

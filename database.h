@@ -26,5 +26,6 @@ void delete_product(List* list, char* name);
 void search_by_name(List* list, char* name);
 void search_by_price(List* list, float price);
 void search_by_quantity(List* list, int quantity);
+void edit_product(List* list);
 
 #endif
